@@ -3,8 +3,8 @@
   <head>
     <meta charset="utf-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <title>Seminario San Martín</title>
-    <meta name="description" content="Scrollytelling para seminario ISEP" />
+    <title>Scrollama: Sticky Overlay Example</title>
+    <meta name="description" content="Scrollama: Sticky Overlay Example" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <link rel="stylesheet" href="style.css" />
     <style>
@@ -35,6 +35,9 @@
         display: flex;
         align-items: center;
         justify-content: center;
+        background-image: url('images/mountains.jpg');
+        background-size: cover;
+        background-position: center center;
       }
 
       .sticky-thing p {
@@ -45,8 +48,9 @@
 
       .step {
         margin: 0 auto 2rem auto;
+        margin-bottom: 15rem;
         color: #fff;
-        background-color: rgba(0, 0, 0, 0.1);
+        background-color: #1ec846a1;
       }
 
       .step:last-child {
@@ -54,7 +58,7 @@
       }
 
       .step.is-active p {
-        background-color: goldenrod;
+        background-color: rgb(124 225 148 / 80%);
         color: #3b3b3b;
       }
 
@@ -62,7 +66,7 @@
         text-align: center;
         padding: 1rem;
         font-size: 1.5rem;
-        background-color: #3b3b3b;
+        background-color: #1ec846a1;
       }
     </style>
   </head>
@@ -70,19 +74,19 @@
   <body>
     <main>
       <nav>
-        <a href="">Seminario San Martín</a>
+        <a href="https://github.com/russellgoldenberg/scrollama">scrollama.js</a>
         <div class="nav__examples">
           <p>Examples:</p>
-          <a href="basic.html">Basico</a>
-          <a href="progress.html">Progresivo</a>
-          <a href="sticky-side.html">Sticky a un costado</a>
-          <a href="sticky-overlay.html">Sticky con overlay</a>
+          <a href="basic.html">Basic</a>
+          <a href="progress.html">Progress</a>
+          <a href="sticky-side.html">Sticky Side</a>
+          <a href="sticky-overlay.html">Sticky Overlay</a>
         </div>
       </nav>
       <section id="intro">
-        <h1 class="intro__hed">Sticky con Overlay</h1>
+        <h1 class="intro__hed">Sticky Overlay Example</h1>
         <p class="intro__dek">
-          Empezá a scrollear
+          Start scrolling to see how it works.
         </p>
       </section>
 
@@ -92,16 +96,16 @@
         </div>
 
         <article>
-          <div class="step" data-step="1">
+          <div class="step" data-step="1" data-color="red">
             <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
           </div>
-          <div class="step" data-step="2">
+          <div class="step" data-step="2" data-color="green">
             <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
           </div>
-          <div class="step" data-step="3">
+          <div class="step" data-step="3" data-color="blue">
             <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
           </div>
-          <div class="step" data-step="4">
+          <div class="step" data-step="4" data-color="red">
             <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
           </div>
         </article>
@@ -114,7 +118,7 @@
     <script src="https://unpkg.com/intersection-observer@0.5.1/intersection-observer.js"></script>
     <script src="https://unpkg.com/scrollama"></script>
     <script>
-      // using d3 for convenience
+      // DOM - document object model
       var main = document.querySelector("main");
       var scrolly = main.querySelector("#scrolly");
       var sticky = scrolly.querySelector(".sticky-thing");
@@ -128,14 +132,18 @@
       function handleStepEnter(response) {
         // response = { element, direction, index }
         var el = response.element;
-
+        console.log(el);
+        
         // remove is-active from all steps
         // then add is-active to this step
         steps.forEach(step => step.classList.remove('is-active'));
         el.classList.add('is-active');
 
         // update graphic based on step
-        sticky.querySelector("p").innerText = el.dataset.step;
+        // use "template literals" with backticks
+        sticky.querySelector("p").innerText = `Step number ${el.dataset.step}`;
+        sticky.style.backgroundColor = el.dataset.color;
+        sticky.querySelector("p").style.fontSize = `${el.dataset.step}rem`;
       }
 
       function init() {
