@@ -2,6 +2,8 @@
   box-sizing: border-box;
 }
 
+
+
 html,
 body {
   margin: 0;
@@ -14,6 +16,14 @@ body {
   color: #3b3b3b;
   background-color: beige;
   font-size: 24px;
+}
+
+body {
+  scroll-snap-type: y mandatory;
+}
+
+section {
+  scroll-snap-align: start;
 }
 
 p,
